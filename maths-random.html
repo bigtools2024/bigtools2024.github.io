@@ -8,10 +8,11 @@
                 var minValue = parseFloat(document.getElementById('minValue').value);
                 var maxValue = parseFloat(document.getElementById('maxValue').value);
                 var quantity = parseInt(document.getElementById('quantity').value, 10);
+                var decimalPlaces = parseInt(document.getElementById('decimalPlaces').value, 10);
                 var resultsContainer = document.getElementById('results');
                 resultsContainer.innerHTML = ''; // 清空之前的输出
                 // 验证输入是否有效
-                if (isNaN(minValue) || isNaN(maxValue) || isNaN(quantity)) {
+                if (isNaN(minValue) || isNaN(maxValue) || isNaN(quantity) || isNaN(decimalPlaces)) {
                     alert('请输入有效的数字');
                     return;
                 }
@@ -19,10 +20,14 @@
                     alert('数量必须是正整数');
                     return;
                 }
+                if (decimalPlaces < 0 || decimalPlaces > 10) {
+                    alert('小数位数必须在0到10之间');
+                    return;
+                }
                 // 生成随机数并添加到页面
                 for (var i = 0; i < quantity; i++) {
                     var randomNum = minValue + Math.random() * (maxValue - minValue);
-                    resultsContainer.innerHTML += randomNum.toFixed(2) + '<br>';
+                    resultsContainer.innerHTML += randomNum.toFixed(decimalPlaces) + '<br>';
                 }
             }
         </script>
@@ -35,21 +40,25 @@
             <tbody>
                 <tr>
                     <td>最小值</td>
-                    <td><input type='number' id='minValue'></td>
+                    <td><input type='number' id='minValue' value='0'></td>
                 </tr>
                 <tr>
                     <td>最大值</td>
-                    <td><input type='number' id='maxValue'></td>
+                    <td><input type='number' id='maxValue' value='100'></td>
                 </tr>
                 <tr>
                     <td>数量</td>
-                    <td><input type='number' id='quantity'></td>
+                    <td><input type='number' id='quantity' min='0' value='10'></td>
+                </tr>
+                <tr>
+                    <td>小数位数</td>
+                    <td><input type='number' id='decimalPlaces' min='0' max='10' value='0'></td>
                 </tr>
             </tbody>
         </table>
         <hr>
         <button onclick='generateRandomNumbers();'>生成随机数</button>
         <hr>
-        <div id='results'></div>
+        <div id='results' style='background-color:#D3D3D3;border-radius:8px;padding:10px;'></div>
     </body>
 </html>
