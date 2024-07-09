@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset='utf-8'>
+        <title>BigTools2024</title>
+        <script>
+            function generateRandomNumbers() {
+                var minValue = parseFloat(document.getElementById('minValue').value);
+                var maxValue = parseFloat(document.getElementById('maxValue').value);
+                var quantity = parseInt(document.getElementById('quantity').value, 10);
+                var resultsContainer = document.getElementById('results');
+                resultsContainer.innerHTML = ''; // 清空之前的输出
+                // 验证输入是否有效
+                if (isNaN(minValue) || isNaN(maxValue) || isNaN(quantity)) {
+                    alert('请输入有效的数字');
+                    return;
+                }
+                if (quantity <= 0 || !Number.isInteger(quantity)) {
+                    alert('数量必须是正整数');
+                    return;
+                }
+                // 生成随机数并添加到页面
+                for (var i = 0; i < quantity; i++) {
+                    var randomNum = minValue + Math.random() * (maxValue - minValue);
+                    resultsContainer.innerHTML += randomNum.toFixed(2) + '<br>';
+                }
+            }
+        </script>
+    </head>
+    <body>
+        <h1>BigTools2024 - 数学 - 随机数</h1>
+        <button onclick='window.location.replace("https://bigtools2024.github.io/");'>返回主页</button>
+        <hr>
+        <table>
+            <tbody>
+                <tr>
+                    <td>最小值</td>
+                    <td><input type='number' id='minValue'></td>
+                </tr>
+                <tr>
+                    <td>最大值</td>
+                    <td><input type='number' id='maxValue'></td>
+                </tr>
+                <tr>
+                    <td>数量</td>
+                    <td><input type='number' id='quantity'></td>
+                </tr>
+            </tbody>
+        </table>
+        <hr>
+        <button onclick='generateRandomNumbers();'>生成随机数</button>
+        <div id='results'></div>
+    </body>
+</html>
